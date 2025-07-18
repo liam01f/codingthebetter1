@@ -36,8 +36,8 @@ class deck:
         return(self.list.pop())
     def shuffle(self):
         for o in range(0,10000000):
-            p=random.randint(0,77)
-            q=random.randint(0,77)
+            p=random.randint(0,len(self.list)-1)
+            q=random.randint(0,len(self.list)-1)
             r=self.list[p]
             self.list[p]=self.list[q]
             #self.list[q]=self.list[p]
@@ -54,9 +54,6 @@ class deck:
 playerdeck=deck()
 computerdeck=deck()
 
-# for i in range(2,15):
-#     a=card("dog",i)
-#player
 suits=["dog","mountain chicken","spiny lumpsucker","atlantic gatarfish","chicken turtle","pleasing fungus beetle"]
 for s in range(0,6):
     t=card(suits[s],2)
@@ -75,8 +72,8 @@ for s in range(0,6):
 for z in range(0,3):
     aa=card(suits[z],8)
     playerdeck.addcard(aa)
+playerdeck.shuffle()
 
-#computer
 for bb in range(0,6):
     cc=card(suits[bb],9)
     dd=card(suits[bb],10)
@@ -93,4 +90,76 @@ for bb in range(0,6):
 for ii in range(3,6):
     jj=card(suits[ii],8)
     computerdeck.addcard(jj)
-computerdeck.printdeck()
+computerdeck.shuffle()
+# playerdeck.shuffle()
+# computerdeck.printdeck()
+# print()
+# playerdeck.printdeck()
+
+while True:
+    computerdeck.length()
+    print(computerdeck.length())
+    playerdeck.length()
+
+    print(playerdeck.length())
+    topcard=computerdeck.drawcard()
+    lossingtopcard=playerdeck.drawcard()
+    if topcard.value>lossingtopcard.value:
+        computerdeck.addcard(lossingtopcard)
+        computerdeck.addcard(topcard)
+    elif topcard.value<lossingtopcard.value:
+        playerdeck.addcard(lossingtopcard)
+        playerdeck.addcard(topcard)
+    elif topcard.value==lossingtopcard.value:
+        while True:
+            if playerdeck.length()==0:
+                print("game over")
+                print()
+                print("you lose hahahahahahahahahaha")
+                print()
+                print("please play again")
+                break
+            if computerdeck.length()==0:
+                print("gameover")
+                print()
+                print("how it was riged in my favor")
+                print()
+                print("please play again")
+                break
+            print("war")
+            middledeck=deck()
+            for kk in range(0,3):
+                nn=computerdeck.drawcard()
+                oo=playerdeck.drawcard()
+                middledeck.addcard(nn)
+                middledeck.addcard(oo)
+            ll=computerdeck.drawcard()
+            mm=playerdeck.drawcard()
+            if ll.value<mm.value:
+                for oo in range(0,8):
+                    alsotopcard=middledeck.drawcard()
+                    playerdeck.addcard(alsotopcard)
+                playerdeck.addcard(ll)
+                playerdeck.addcard(mm)
+                break
+            if ll.value<mm.value:
+                for qq in range(0,8):
+                    alsolossertopcard=middledeck.drawcard()
+                    playerdeck.addcard(alsolossertopcard)
+                playerdeck.addcard(ll)
+                playerdeck.addcard(mm)
+                break
+    if playerdeck!=lossingtopcard:
+        print("game over")
+        print()
+        print("you lose hahahahahahahahahaha")
+        print()
+        print("please play again")
+        break
+    if computerdeck!=topcard:
+        print("gameover")
+        print()
+        print("how it was riged in my favor")
+        print()
+        print("please play again")
+        break
